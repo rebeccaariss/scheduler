@@ -25,6 +25,13 @@ export default function Form(props) {
       return;
     }
 
+    if (interviewer === null) {
+      setError("Please select an interviewer");
+      return;
+    }
+
+    // No error should be set if first two conditions are not met
+    // (return statements break out of function block if they are):
     setError("");
     props.onSave(name, interviewer);
   }
