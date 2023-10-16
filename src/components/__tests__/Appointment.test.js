@@ -2,6 +2,7 @@
   We are rendering `<Application />` down below, so we need React.createElement
 */
 import React from "react";
+import { waitForElement, fireEvent } from "@testing-library/react";
 
 /*
   We import our helper functions from the react-testing-library
@@ -26,11 +27,12 @@ describe("Application", () => {
     render(<Application />);
   });
 
-  // it("does something it is supposed to do", () => {
-  //   // ...
-  // });
-
-  // it("does something else it is supposed to do", () => {
-  //   // ...
-  // });
+  it("defaults to Monday and changes the schedule when a new day is selected", () => {
+    const { getByText } = render(<Application />);
+  
+    return waitForElement(() => getByText("Monday")).then(() => {
+      fireEvent.click(getByText("Tuesday"));
+      expect(getByText("Leopold Silvers")).toBeInTheDocument();
+    });
+  });
 });
